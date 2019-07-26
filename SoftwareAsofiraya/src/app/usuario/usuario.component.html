@@ -1,0 +1,41 @@
+<div class="card mb-3">
+  <div class="card-header">Usuarios</div>
+  <div class="card-body">
+    <div class="my-2 text-left">
+      <button class="btn btn-rounded btn-primary" routerLink="/usuarioForm"> Crear Usuario</button>
+    </div>
+    <div *ngIf="usuarios?.length===0" class="alert alert-info">
+      No hay Usuarios en la base de datos!
+    </div>
+    <h5 class="card-title">Listado de Usuarios</h5>
+    <table class="table table-bordered table-striped" *ngIf="usuarios?.length>0">
+      <thead>
+        <tr>
+          <th>Cedula</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>multa</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of usuarios | paginate: { itemsPerPage: 5, currentPage: pageActual}">
+          <td>{{usuario.cedula}}</td>
+          <td>{{usuario.nombre}}</td>
+          <td>{{usuario.apellido}}</td>
+          <td>{{usuario.multa}}</td>
+          <td>
+            <button type="button" class="btn btn-info mx-2" [routerLink]="['/usuarios/form',usuario.cedula]">
+              <span class="glyphicon glyphicon-pencil"></span>Editar
+            </button>
+            <button type="button" class="btn btn-danger mx-2" (click)="eliminar(empleado)">
+              <span class="glyphicon glyphicon-remove"></span>Eliminar
+            </button>
+            <button class="btn btn-success">Registrar Asistencia</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+  </div>
+</div>

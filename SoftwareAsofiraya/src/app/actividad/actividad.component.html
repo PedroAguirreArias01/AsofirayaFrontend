@@ -1,0 +1,37 @@
+<div class="card mb-3">
+        <div class="card-header">Actividaades</div>
+        <div class="card-body">
+          <div class="my-2 text-left">
+            <button class="btn btn-rounded btn-primary" routerLink="/actividadForm"> Crear actividad</button>
+          </div>
+          <div *ngIf="actividades?.length===0" class="alert alert-info">
+            No hay Actividades en la base de datos!
+          </div>
+          <h5 class="card-title">Listado de Actividades</h5>
+          <table class="table table-bordered table-striped" *ngIf="actividades?.length>0">
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>Descripción</th>
+                <th>Fecha Actividad</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let actividad of actividades | paginate: { itemsPerPage: 5, currentPage: pageActual}">
+                <td>{{actividad.id}}</td>
+                <td>{{actividad.descripcion}}</td>
+                <td>
+                  <button type="button" class="btn btn-info mx-2" [routerLink]="['/actividad/form',actividad.id]">
+                    <span class="glyphicon glyphicon-pencil"></span>Editar
+                  </button>
+                  <button type="button" class="btn btn-danger mx-2" (click)="eliminar(empleado)">
+                    <span class="glyphicon glyphicon-remove"></span>Eliminar
+                  </button>
+                  <button class="btn btn-success" (click)="registrarAsistencia(actividad)">Registrar Asistencia</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+        </div>
+      </div>

@@ -1,0 +1,55 @@
+<div class="card">
+    <div class="card-header">
+        <legend class="text-center header">Agregar Actividad</legend>
+    </div>
+    <div class="card-body">
+        <form class="form" #usuarioForm="ngForm">
+            <div class="form-row">
+                <div class="form-group col-6">
+                    <label for="cedula">Descripción</label>
+                    <input type="text" required class="form-control" id="descripcion" name="descripcion"
+                        [(ngModel)]="actividad.descripcion" #descripcion="ngModel">
+                    <div class="alert alert-danger py-0"
+                        *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)">
+                        <div *ngIf="descripcion.errors.required">
+                            <small>Descripción es requerida</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-6">
+                    <label for="lugar">Lugar</label>
+                    <input type="text" class="form-control" id="lugar" name="lugar" [(ngModel)]="actividad.lugar"
+                        required #lugar="ngModel">
+                    <div class="alert alert-danger py-0" *ngIf="lugar.invalid && (lugar.dirty || lugar.touched)">
+                        <div *ngIf="nombre.errors.required">
+                            <small>Lugar es requerido</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-6">
+                    <mat-form-field>
+                        <input matInput [matDatepicker]="picker" placeholder="Fecha actividad" required
+                            [(ngModel)]="actividad.fecha">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="card-footer">
+        <div class="form-group">
+            <div class="col-md-6">
+                <button type="button" class="btn btn-primary" (click)='crear()' *ngIf="!editar else elseBlock"
+                    [disabled]="!usuarioForm.form.valid">Guardar</button>
+
+                <ng-template #elseBlock>
+                    <button type="button" class="btn btn-primary" (click)='update()'
+                        [disabled]="!usuarioForm.form.valid">Editar</button>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

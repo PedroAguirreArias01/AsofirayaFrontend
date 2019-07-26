@@ -1,0 +1,26 @@
+<div class="card mb-3">
+        <div class="card-header">Registro de asistencias</div>
+        <div class="card-body">
+          <div *ngIf="asistencias?.length===0" class="alert alert-info">
+            No hay asistencias en la base de datos!
+          </div>
+          <h5 class="card-title">Listado de Asistencias</h5>
+          <table class="table table-bordered table-striped" *ngIf="asistencias?.length>0">
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>Descripción</th>
+                <th>Nombre Usuario</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let asistencia of asistencias | paginate: { itemsPerPage: 5, currentPage: pageActual}">
+                <td>{{asistencia.id}}</td>
+                <td>{{asistencia.actividad.descripcion}}</td>
+                <td>{{asistencia.cedulaAdulto.nombre}}  {{asistencia.cedulaAdulto.apellido}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+        </div>
+      </div>

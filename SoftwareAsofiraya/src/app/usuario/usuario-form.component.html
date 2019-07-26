@@ -1,0 +1,86 @@
+<div class="card mb-3">
+  <div class="card-header">
+    <legend class="text-center header" *ngIf="!editar else EditarTitulo">Agregar Usuario</legend>
+    <ng-template #EditarTitulo>
+      <legend class="text-center header">Editar Usuario</legend>
+    </ng-template>
+  </div>
+  <div class="card-body">
+    <form class="form" #usuarioForm="ngForm">
+      <div class="form-row">
+        <div class="form-group col-6">
+          <label for="cedula">Cedula</label>
+          <input type="text" required class="form-control" id="cedula" name="cedula" [(ngModel)]="usuario.cedula"
+            digitOnly minLenght="10" maxlength="10" #cedula="ngModel">
+          <div class="alert alert-danger py-0" *ngIf="cedula.invalid && (cedula.dirty || cedula.touched)">
+            <div *ngIf="cedula.errors.required">
+              <small>Cédula es requerida</small>
+            </div>
+            <div *ngIf="cedula.errors.minLength && cedula.errors.maxLength ">
+              <small>Cédula no tiene la longitud requerida</small>
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-6">
+          <label for="nombre">Nombre</label>
+          <input type="text" class="form-control" id="nombre" name="nombre" [(ngModel)]="usuario.nombre" required
+            #nombre="ngModel">
+          <div class="alert alert-danger py-0" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+            <div *ngIf="nombre.errors.required">
+              <small>Nombre es requerido</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-6">
+          <label for="apellido">Apellido</label>
+          <input type="text" class="form-control" id="apellido" name="apellido" [(ngModel)]="usuario.apellido" required
+            #apellido="ngModel">
+          <div class="alert alert-danger py-0" *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)">
+            <div *ngIf="apellido.errors.required">
+              <small>Apellido es requerido</small>
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-6">
+          <label for="celular">Celular</label>
+          <input type="text" class="form-control" id="celular" name="celular" [(ngModel)]="usuario.celular" required
+            #celular="ngModel">
+          <div class="alert alert-danger py-0" *ngIf="celular.invalid && (celular.dirty || celular.touched)">
+            <div *ngIf="celular.errors.required">
+              <small>celular es requerido</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-6">
+          <button class="btn btn-success" (click)="cargarManilla()">Agregar RFID</button>
+        </div>
+        <div class="form-group col-6 mt-3">
+          <label for="apellido">RFID</label>
+          <input type="text" class="form-control" id="manilla" name="manilla" value="{{manilla}}"
+             readonly>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+  <div class="card-footer">
+    <div class="form-group">
+      <div class="col-md-6">
+        <button type="button" class="btn btn-primary" (click)='crear()' *ngIf="!editar else elseBlock"
+          [disabled]="!usuarioForm.form.valid">Guardar</button>
+
+        <ng-template #elseBlock>
+          <button type="button" class="btn btn-primary" (click)='update()'
+            [disabled]="!usuarioForm.form.valid">Editar</button>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
